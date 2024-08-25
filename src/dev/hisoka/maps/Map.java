@@ -1,7 +1,7 @@
 package dev.hisoka.maps;
 
 import dev.hisoka.Game;
-import dev.hisoka.maps.util.MapConstants;
+import dev.hisoka.util.Constants;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class Map{
         grid = new int[size][size];
         image = new BufferedImage[2];
         for(int i=0; i<image.length; i++){
-            image[i] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(MapConstants.mp.get(i))));
+            image[i] = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(Constants.TILE_INFO.get(i))));
         }
 
         BufferedReader br = new BufferedReader(new FileReader(Objects.requireNonNull(getClass().getResource(path)).getPath()));
@@ -32,6 +32,7 @@ public class Map{
                 grid[i][j] = Integer.parseInt(st[j]);
             }
         }
+        br.close();
         printMap();
 
     }

@@ -14,7 +14,6 @@ import java.util.Objects;
 public class Player extends Entity {
     private Game game;
     private KeyInput keyInput;
-    private int speed;
 
     private BufferedImage image;
 
@@ -26,7 +25,8 @@ public class Player extends Entity {
         this.keyInput = keyInput;
         screenX = Game.WIDTH/2 - Game.TILE_SIZE/2;
         screenY = Game.HEIGHT/2 - Game.TILE_SIZE/2;
-        speed = 10;
+        solidArea = new Rectangle(0, 0, 48, 48);
+        speed = 5;
         image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player1.png")));
         setDefaultParameters();
     }
@@ -45,17 +45,51 @@ public class Player extends Entity {
 
     @Override
     public void update(){
+        System.out.println(worldX + " " + worldY);
+        if(checkMapBounds()){
+            return;
+        }
+
         if(keyInput.keyStatus[KeyEvent.VK_UP] || keyInput.keyStatus[KeyEvent.VK_W]){
-            worldY-=speed;
+            direction = "up";
+            collisionOn = false;
+            game.collisionChecker.checkTileCollion(this);
+            if(!collisionOn) worldY -= speed;
         }
         if(keyInput.keyStatus[KeyEvent.VK_DOWN] || keyInput.keyStatus[KeyEvent.VK_S]){
-            worldY+=speed;
+            direction = "down";
+            collisionOn = false;
+            game.collisionChecker.checkTileCollion(this);
+            if(!collisionOn) worldY += speed;
         }
         if(keyInput.keyStatus[KeyEvent.VK_LEFT] || keyInput.keyStatus[KeyEvent.VK_A]){
-            worldX-=speed;
+            direction = "left";
+            collisionOn = false;
+            game.collisionChecker.checkTileCollion(this);
+            if(!collisionOn) worldX -= speed;
         }
         if(keyInput.keyStatus[KeyEvent.VK_RIGHT] || keyInput.keyStatus[KeyEvent.VK_D]){
-            worldX+=speed;
+            direction = "right";
+            collisionOn = false;
+            game.collisionChecker.checkTileCollion(this);
+            if(!collisionOn) worldX += speed;
         }
+    }
+
+    private boolean checkMapBounds() {
+        boolean outOfMap = false;
+
+        switch (this.direction){
+            case "up":
+                //int entityTopRow = (entityTopWorldY - entity.speed)/game.TILE_SIZE;
+                break;
+            case "down":
+
+            case "left":
+
+            case "right":
+
+        }
+        return outOfMap;
     }
 }

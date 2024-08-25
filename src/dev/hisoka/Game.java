@@ -4,6 +4,8 @@ import dev.hisoka.characters.Entity;
 import dev.hisoka.characters.Player;
 import dev.hisoka.input.KeyInput;
 import dev.hisoka.maps.Map;
+import dev.hisoka.tile.TileManager;
+import dev.hisoka.util.CollisionChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +16,20 @@ public class Game extends JPanel implements Runnable{
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static final int ACTUAL_WIDTH = 300 ;
-    public static final int ACTUAL_HEIGHT = 200;
     public static final int ACTUAL_TILE_SIZE = 16;
     public static final int SCALE = 3;
 
-    public static final int WIDTH = ACTUAL_WIDTH * SCALE ;
-    public static final int HEIGHT = ACTUAL_HEIGHT * SCALE;
     public static final int TILE_SIZE = ACTUAL_TILE_SIZE * SCALE;
+    public static final int MAX_SCREEN_COL = 16;
+    public static final int MAX_SCREEN_ROW = 12;
+
+    public static final int MAX_WORLD_COL = 20;
+
+    public static final int MAX_WORLD_ROW = 10;
+
+    //480 * 960
+    public static final int WIDTH = MAX_SCREEN_COL * TILE_SIZE ;
+    public static final int HEIGHT = MAX_SCREEN_ROW * TILE_SIZE;
 
     public static String title = "Hisoka";
     public boolean running = false;
@@ -30,7 +38,11 @@ public class Game extends JPanel implements Runnable{
 
     public Player player = new Player(this, keyInput);
 
-    private Map map = new Map(this, "/map/map1.txt", 26);
+    public TileManager tileManager = new TileManager(this);
+
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+
+    //private Map map = new Map(this, "/map/map1.txt", 26);
 
 
     public Game() throws IOException {
@@ -96,9 +108,9 @@ public class Game extends JPanel implements Runnable{
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
         try {
-            map.render(graphics2D);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            tileManager.render(graphics2D);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         player.render(graphics2D);
 
