@@ -75,6 +75,7 @@ public class TileManager {
                 }
             }
         }
+
     }
 
     public void printMap(int[][] mapTileNum){

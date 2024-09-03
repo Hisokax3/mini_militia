@@ -3,6 +3,7 @@ package dev.hisoka;
 import dev.hisoka.characters.Entity;
 import dev.hisoka.characters.Player;
 import dev.hisoka.input.KeyInput;
+import dev.hisoka.input.MouseInput;
 import dev.hisoka.maps.Map;
 import dev.hisoka.tile.TileManager;
 import dev.hisoka.util.CollisionChecker;
@@ -12,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends JPanel implements Runnable{
     @Serial
@@ -37,6 +40,8 @@ public class Game extends JPanel implements Runnable{
     private Thread thread;
     private final KeyInput keyInput = new KeyInput();
 
+    private final MouseInput mouseInput = new MouseInput(this);
+
     public Player player = new Player(this, keyInput);
 
     public TileManager tileManager = new TileManager(this);
@@ -47,12 +52,15 @@ public class Game extends JPanel implements Runnable{
 
     public OutOfMapChecker outOfMapChecker = new OutOfMapChecker(this);
 
+    public List<Entity> entities = new ArrayList<>();
+
 
     public Game() throws IOException {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyInput);
+        this.addMouseListener(mouseInput);
         this.setFocusable(true);
         this.requestFocusInWindow();
     }
@@ -104,6 +112,9 @@ public class Game extends JPanel implements Runnable{
     }
 
     public void update() {
+        for (Entity entity: entities){
+            entity.update();
+        }
         player.update();
     }
 
@@ -114,6 +125,9 @@ public class Game extends JPanel implements Runnable{
             tileManager.render(graphics2D);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        for (Entity entity: entities){
+            entity.render(graphics2D);
         }
         player.render(graphics2D);
 

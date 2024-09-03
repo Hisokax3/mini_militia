@@ -12,7 +12,6 @@ public class OutOfMapChecker {
 
     public boolean CheckOutOfBounds(Entity entity){
 
-        System.out.println("inside bound check" + entity.direction);
         switch(entity.direction) {
             case "up":
                 if(entity.worldY <= 0 ) return true;

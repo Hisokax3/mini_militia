@@ -49,7 +49,6 @@ public class Player extends Entity {
         if(keyInput.keyStatus[KeyEvent.VK_UP] || keyInput.keyStatus[KeyEvent.VK_W]){
             direction = "up";
             collisionOn = false;
-            System.out.println("player up");
             boolean outOfMap = game.outOfMapChecker.CheckOutOfBounds(this);
             if(!outOfMap){
                 game.collisionChecker.checkTileCollion(this);
@@ -59,9 +58,7 @@ public class Player extends Entity {
         if(keyInput.keyStatus[KeyEvent.VK_DOWN] || keyInput.keyStatus[KeyEvent.VK_S]){
             direction = "down";
             collisionOn = false;
-            System.out.println("player down");
             boolean outOfMap = game.outOfMapChecker.CheckOutOfBounds(this);
-            System.out.println(outOfMap);
             if(!outOfMap){
                 game.collisionChecker.checkTileCollion(this);
                 if(!collisionOn) worldY += speed;
@@ -70,7 +67,6 @@ public class Player extends Entity {
         if(keyInput.keyStatus[KeyEvent.VK_LEFT] || keyInput.keyStatus[KeyEvent.VK_A]){
             direction = "left";
             collisionOn = false;
-            System.out.println("player left");
             boolean outOfMap = game.outOfMapChecker.CheckOutOfBounds(this);
             if(!outOfMap){
                 game.collisionChecker.checkTileCollion(this);
@@ -80,7 +76,6 @@ public class Player extends Entity {
         if(keyInput.keyStatus[KeyEvent.VK_RIGHT] || keyInput.keyStatus[KeyEvent.VK_D]){
             direction = "right";
             collisionOn = false;
-            System.out.println("player right");
             boolean outMap = game.outOfMapChecker.CheckOutOfBounds(this);
             if(!outMap){
                 game.collisionChecker.checkTileCollion(this);
