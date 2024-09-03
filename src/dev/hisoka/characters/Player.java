@@ -45,51 +45,47 @@ public class Player extends Entity {
 
     @Override
     public void update(){
-        System.out.println(worldX + " " + worldY);
-        if(checkMapBounds()){
-            return;
-        }
 
         if(keyInput.keyStatus[KeyEvent.VK_UP] || keyInput.keyStatus[KeyEvent.VK_W]){
             direction = "up";
             collisionOn = false;
-            game.collisionChecker.checkTileCollion(this);
-            if(!collisionOn) worldY -= speed;
+            System.out.println("player up");
+            boolean outOfMap = game.outOfMapChecker.CheckOutOfBounds(this);
+            if(!outOfMap){
+                game.collisionChecker.checkTileCollion(this);
+                if(!collisionOn) worldY -= speed;
+            }
         }
         if(keyInput.keyStatus[KeyEvent.VK_DOWN] || keyInput.keyStatus[KeyEvent.VK_S]){
             direction = "down";
             collisionOn = false;
-            game.collisionChecker.checkTileCollion(this);
-            if(!collisionOn) worldY += speed;
+            System.out.println("player down");
+            boolean outOfMap = game.outOfMapChecker.CheckOutOfBounds(this);
+            System.out.println(outOfMap);
+            if(!outOfMap){
+                game.collisionChecker.checkTileCollion(this);
+                if(!collisionOn) worldY += speed;
+            }
         }
         if(keyInput.keyStatus[KeyEvent.VK_LEFT] || keyInput.keyStatus[KeyEvent.VK_A]){
             direction = "left";
             collisionOn = false;
-            game.collisionChecker.checkTileCollion(this);
-            if(!collisionOn) worldX -= speed;
+            System.out.println("player left");
+            boolean outOfMap = game.outOfMapChecker.CheckOutOfBounds(this);
+            if(!outOfMap){
+                game.collisionChecker.checkTileCollion(this);
+                if(!collisionOn) worldX -= speed;
+            }
         }
         if(keyInput.keyStatus[KeyEvent.VK_RIGHT] || keyInput.keyStatus[KeyEvent.VK_D]){
             direction = "right";
             collisionOn = false;
-            game.collisionChecker.checkTileCollion(this);
-            if(!collisionOn) worldX += speed;
+            System.out.println("player right");
+            boolean outMap = game.outOfMapChecker.CheckOutOfBounds(this);
+            if(!outMap){
+                game.collisionChecker.checkTileCollion(this);
+                if(!collisionOn) worldX += speed;
+            }
         }
-    }
-
-    private boolean checkMapBounds() {
-        boolean outOfMap = false;
-
-        switch (this.direction){
-            case "up":
-                //int entityTopRow = (entityTopWorldY - entity.speed)/game.TILE_SIZE;
-                break;
-            case "down":
-
-            case "left":
-
-            case "right":
-
-        }
-        return outOfMap;
     }
 }

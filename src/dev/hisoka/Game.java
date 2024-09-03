@@ -6,6 +6,7 @@ import dev.hisoka.input.KeyInput;
 import dev.hisoka.maps.Map;
 import dev.hisoka.tile.TileManager;
 import dev.hisoka.util.CollisionChecker;
+import dev.hisoka.util.OutOfMapChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +44,8 @@ public class Game extends JPanel implements Runnable{
     public CollisionChecker collisionChecker = new CollisionChecker(this);
 
     //private Map map = new Map(this, "/map/map1.txt", 26);
+
+    public OutOfMapChecker outOfMapChecker = new OutOfMapChecker(this);
 
 
     public Game() throws IOException {
